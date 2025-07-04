@@ -3,6 +3,7 @@ export interface Supplier {
   cnpj: string;
   razaoSocial: string;
   nomeFantasia: string;
+  cnae: string;
   endereco: {
     logradouro: string;
     numero: string;
@@ -18,6 +19,7 @@ export interface CreateSupplierData {
   cnpj: string;
   razaoSocial: string;
   nomeFantasia: string;
+  cnae: string;
   endereco: {
     logradouro: string;
     numero: string;
