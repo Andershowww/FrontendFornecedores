@@ -41,17 +41,18 @@ class SupplierService {
     // Ajuste dos campos para o backend, especialmente o endereco:
     const payload = {
       cnpj: data.cnpj,
-      razaoSocial: data.razaoSocial, // se o backend espera razaoSocial
-      nomeFantasia: data.nomeFantasia, // aqui talvez precise separar se tiver ambos
+      razaoSocial: data.razaoSocial, 
+      nomeFantasia: data.nomeFantasia, 
+      cnae: data.cnae,
       endereco: {
         logradouro: data.endereco.logradouro,
         numero: data.endereco.numero,
         complemento: data.endereco.complemento,
-        bairro: data.endereco.bairro, // Se você tiver o dado, inclua aqui, senão vazio
+        bairro: data.endereco.bairro, 
         municipio: data.endereco.municipio,
         uf: data.endereco.uf,
       },
-      // inclua outros campos que backend aceitar
+     
     };
 
     return this.request<Supplier>(`${API_BASE_URL}`, {
@@ -108,6 +109,7 @@ class SupplierService {
       cnpj: data.cnpj,
       razaoSocial: data.razaoSocial,
       nomeFantasia:data.nomeFantasia,
+      cnae: data.cnae,
       endereco: {
         logradouro: data.endereco.logradouro,
         numero: data.endereco.numero || '',

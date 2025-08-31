@@ -21,6 +21,7 @@ export const SupplierForm: React.FC = () => {
     cnpj: '',
     razaoSocial: '',
     nomeFantasia: '',
+    cnae:'',
     endereco: {
       logradouro: '',
       numero: '',
@@ -28,7 +29,7 @@ export const SupplierForm: React.FC = () => {
       bairro: '',
       municipio: '',
       uf: '',
-      cep:'',
+      cep: '',
     }
   });
 
@@ -69,6 +70,9 @@ export const SupplierForm: React.FC = () => {
       newErrors['endereco.uf'] = 'UF é obrigatória';
     }
 
+    if (!formData.endereco.cep) {
+      newErrors['endereco.cep'] = 'Cep é obrigatório';
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -113,11 +117,12 @@ export const SupplierForm: React.FC = () => {
       setError(null);
 
       const dados = await supplierService.buscarCnpj(formData.cnpj);
-  console.log(dados)
+      console.log(dados)
       setFormData(prev => ({
         ...prev,
         razaoSocial: dados.razaoSocial || '',
         nomeFantasia: dados.nomeFantasia || '',
+        cnae: dados.cnae || '',
         endereco: {
           logradouro: dados.endereco?.logradouro || '',
           numero: dados.endereco?.numero || '',
@@ -278,6 +283,19 @@ export const SupplierForm: React.FC = () => {
                 />
                 {errors.nomeFantasia && <div className="invalid-feedback">{errors.nomeFantasia}</div>}
               </div>
+              <div className="col-md-6">
+                <label htmlFor="cnae" className="form-label">Cnae </label>
+                <input
+                  type="text"
+                  className={`form-control ${errors.cnae ? 'is-invalid' : ''}`}
+                  id="cnae"
+                  name="cnae"
+                  value={formData.cnae}
+                  onChange={handleInputChange}
+                  placeholder=""
+                  disabled={loading}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -356,7 +374,6 @@ export const SupplierForm: React.FC = () => {
                 />
                 {errors['endereco.municipio'] && <div className="invalid-feedback">{errors['endereco.municipio']}</div>}
               </div>
-
               <div className="col-md-2">
                 <label htmlFor="endereco.uf" className="form-label">UF *</label>
                 <select
@@ -375,6 +392,19 @@ export const SupplierForm: React.FC = () => {
                   ))}
                 </select>
                 {errors['endereco.uf'] && <div className="invalid-feedback">{errors['endereco.uf']}</div>}
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="endereco.cep" className="form-label">Cep *</label>
+                <input
+                  type="text"
+                  className={`form-control ${errors['endereco.cep'] ? 'is-invalid' : ''}`}
+                  id="endereco.cep"
+                  name="endereco.cep"
+                  value={formData.endereco.cep}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                />
+                {errors['endereco.cep'] && <div className="invalid-feedback">{errors['endereco.cep']}</div>}
               </div>
             </div>
           </div>
